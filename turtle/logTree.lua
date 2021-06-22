@@ -2,7 +2,7 @@ local mov = require("base/mov")
 
 local saplingSlot = 16
 
-function checkLog(side)
+local function checkLog(side)
     local hasData, data
     if side == "top" then
         hasData, data = turtle.inspectUp()
@@ -18,6 +18,15 @@ function checkLog(side)
     end
 
     return false
+end
+
+local function dropAll()
+    for i = 1, 16 do
+        if i ~= saplingSlot then
+            turtle.select(i)
+            turtle.dropDown()
+        end
+    end
 end
 
 while true do
@@ -40,16 +49,14 @@ while true do
         turtle.suck()
         turtle.suckUp()
 
-        for i = 1, 16 do
-            if i ~= saplingSlot then
-                turtle.select(i)
-                turtle.dropDown()
-            end
-        end
+        dropAll()
 
         turtle.select(saplingSlot)
         turtle.place()
     end
 
     sleep(10)
+    turtle.suck()
+    turtle.suckUp()
+    dropAll()
 end

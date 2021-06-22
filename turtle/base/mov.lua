@@ -78,16 +78,29 @@ local function d()
 end
 
 local function tL()
-    turtle.turnLeft()
+    return turtle.turnLeft()
 end
 
 local function tR()
-    turtle.turnRight()
+    return turtle.turnRight()
 end
 
 local function tA()
     turtle.turnRight()
-    turtle.turnRight()
+    return turtle.turnRight()
 end
 
-return {f = f, b = b, l = l, r = r, u = u, d = d, tL = tL, tR = tR, tA = tA}
+local function t(direction)
+    if string.lower(direction) == "r" then
+        return tR()
+    elseif string.lower(direction) == "l" then
+        return tL()
+    elseif string.lower(direction) == "a" then
+        return tA()
+    else
+        print("unknown direction")
+        return false, "unknown direction"
+    end
+end
+
+return {f = f, b = b, l = l, r = r, u = u, d = d, tL = tL, tR = tR, tA = tA, t=t}

@@ -2,9 +2,11 @@ local mov = require("base/mov")
 
 local args = {...}
 
-local x = tonumber(args[1])
-local y = tonumber(args[2])
-local z = tonumber(args[3])
+local x = math.abs(tonumber(args[1]))
+local y = math.abs(tonumber(args[2]))
+local yN = tonumber(args[2]) < 0
+local z = math.abs(tonumber(args[3]))
+local zN = tonumber(args[3]) < 0
 
 for i = 1, z do
     for j = 1, y do
@@ -14,26 +16,51 @@ for i = 1, z do
         end
 
         if j < y then
+            local direction = ""
+
             if j % 2 == 1 then
-                mov.tR()
+                if yN then
+                    direction = "l"
+                else
+                    direction = "r"
+                end
             else
-                mov.tL()
+                if yN then
+                    direction = "r"
+                else
+                    direction = "l"
+                end
             end
 
+            mov.t(direction)
             turtle.dig()
             mov.f()
-
-            if j % 2 == 1 then
-                mov.tR()
-            else
-                mov.tL()
-            end
+            mov.t(direction)
         end
     end
 
     if i < z then
-        turtle.digDown()
-        mov.d()
-        mov.tA()
+        if zN then
+            turtle.digDown()
+            mov.d()
+        else
+            turtle.digUp()
+            mov.u()
+        end
+
+        if y % 2 == 1 then
+            mov.tA()
+        else
+            local direction = ""
+            if yN then
+                direction = "l"
+            else
+                direction = "r"
+            end
+            mov.t(direction)
+            local temp = x
+            x = y
+            y = temp
+        end
     end
 end
