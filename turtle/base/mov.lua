@@ -15,8 +15,12 @@ local function f()
         sleep(10)
     end
     while not turtle.forward() do
-        print("can't move forward")
-        sleep(10)
+        if turtle.dig() then
+            sleep(0.5)
+        else
+            print("can't move forward")
+            sleep(10)
+        end
     end
 end
 
@@ -38,8 +42,12 @@ local function l()
     end
     turtle.turnLeft()
     while not turtle.forward() do
-        print("can't move forward")
-        sleep(10)
+        if turtle.dig() then
+            sleep(0.5)
+        else
+            print("can't move forward")
+            sleep(10)
+        end
     end
 end
 
@@ -50,8 +58,12 @@ local function r()
     end
     turtle.turnRight()
     while not turtle.forward() do
-        print("can't move forward")
-        sleep(10)
+        if turtle.dig() then
+            sleep(0.5)
+        else
+            print("can't move forward")
+            sleep(10)
+        end
     end
 end
 
@@ -61,8 +73,12 @@ local function u()
         sleep(10)
     end
     while not turtle.up() do
-        print("can't move up")
-        sleep(10)
+        if turtle.digUp() then
+            sleep(0.5)
+        else
+            print("can't move up")
+            sleep(10)
+        end
     end
 end
 
@@ -72,8 +88,12 @@ local function d()
         sleep(10)
     end
     while not turtle.down() do
-        print("can't move down")
-        sleep(10)
+        if turtle.digDown() then
+            sleep(0.5)
+        else
+            print("can't move down")
+            sleep(10)
+        end
     end
 end
 
@@ -103,4 +123,4 @@ local function t(direction)
     end
 end
 
-return {f = f, b = b, l = l, r = r, u = u, d = d, tL = tL, tR = tR, tA = tA, t=t}
+return {f = f, b = b, l = l, r = r, u = u, d = d, tL = tL, tR = tR, tA = tA, t = t}
