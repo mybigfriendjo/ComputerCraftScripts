@@ -9,7 +9,7 @@ turtle.select(currentSlot)
 while true do
     local sum = 0
 
-    while sum < 64 do
+    while sum < 128 do
         local contentsInput = inputChest.list()
 
         for slot, item in pairs(contentsInput) do
