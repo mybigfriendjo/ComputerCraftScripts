@@ -13,6 +13,7 @@ local trash = {
 }
 
 local store = {
+    "alexsmobs:cockroach_wing_fragment",
     "eidolon:tattered_cloth",
     "eidolon:zombie_heart",
     "forbidden_arcanus:bat_wing",
@@ -46,6 +47,7 @@ local smelt = {
     "mekanismtools:refined_glowstone_chestplate",
     "mekanismtools:refined_glowstone_helmet",
     "mekanismtools:refined_glowstone_leggings",
+    "mekanismtools:refined_glowstone_sword",
     "mekanismtools:steel_boots",
     "mekanismtools:steel_chestplate",
     "mekanismtools:steel_helmet",
