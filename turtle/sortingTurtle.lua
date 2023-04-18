@@ -1,3 +1,5 @@
+local tools = require("base/tools")
+
 local trash = {
     "environmental:thief_hood",
     "mekanismtools:lapis_lazuli_boots",
@@ -66,15 +68,6 @@ local smelt = {
     "minecraft:iron_sword"
 }
 
-local function has_value(tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
-    return false
-end
-
 local function transferToEmptySlot()
     for i = 2, 16 do
         if turtle.getItemCount(i) == 0 then
@@ -91,13 +84,13 @@ while true do
     local data = turtle.getItemDetail()
 
     if data ~= nil then
-        if has_value(trash, data.name) then
+        if tools.tableHasValue(trash, data.name) then
             turtle.dropDown()
         end
-        if has_value(store, data.name) then
+        if tools.tableHasValue(store, data.name) then
             turtle.dropUp()
         end
-        if has_value(smelt, data.name) then
+        if tools.tableHasValue(smelt, data.name) then
             turtle.turnRight()
             turtle.drop()
             turtle.turnLeft()
