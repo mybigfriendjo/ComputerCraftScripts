@@ -1,4 +1,5 @@
 local mov = require("base/mov")
+local tools = require("base/tools")
 
 local args = {...}
 
@@ -8,38 +9,13 @@ local yN = tonumber(args[2]) < 0
 local z = math.abs(tonumber(args[3]))
 local zN = tonumber(args[3]) < 0
 
-local function getEnderChestSlot()
-    for i = 1, 16 do
-        local itemTable = turtle.getItemDetail(i)
-        if itemTable ~= nil and itemTable.name == "enderstorage:ender_chest" then
-            return i
-        end
-    end
-
-    return -1
-end
-
-local function inventoryFull()
-    for i = 1, 16 do
-        if turtle.getItemCount(i) == 0 then
-            return false
-        end
-    end
-
-    return true
-end
-
-local function checkFullUnload()
-    while inventoryFull() do
-        if not dumpIntoEnderChest() then
-            print("inventory full - please unload")
-            sleep(10)
-        end
-    end
-end
-
 local function dumpIntoEnderChest()
-    local enderChestSlot = getEnderChestSlot()
+    local enderChestSlot = tools.getSlotContaining("enderstorage:ender_chest")
+
+    if enderChestSlot == -1 then
+        enderChestSlot = tools.getSlotContaining("enderchests:ender_chest")
+    end
+
     if enderChestSlot ~= -1 then
         turtle.select(enderChestSlot)
         turtle.place()
@@ -51,6 +27,15 @@ local function dumpIntoEnderChest()
         return true
     end
     return false
+end
+
+local function checkFullUnload()
+    while tools.isInventoryFull() do
+        if not dumpIntoEnderChest() then
+            print("inventory full - please unload")
+            sleep(10)
+        end
+    end
 end
 
 for i = 1, z do
@@ -111,8 +96,6 @@ for i = 1, z do
     end
 end
 
-if getEnderChestSlot() ~= -1 then
-    mov.b()
-    dumpIntoEnderChest()
-    mov.f()
-end
+mov.b()
+dumpIntoEnderChest()
+mov.f()
