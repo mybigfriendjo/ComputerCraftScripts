@@ -1,5 +1,25 @@
+local function addFuelValueToTurtleLabel()
+    local fuelLevel = turtle.getFuelLevel()
+
+    local currentLabel = os.getComputerLabel()
+    if currentLabel == nil then
+        os.setComputerLabel("(" .. fuelLevel .. ")")
+        return
+    end
+
+    local firstBracket, endBracket = string.find(currentLabel, "%(")
+
+    if firstBracket == nil then
+        os.setComputerLabel(currentLabel .. " (" .. fuelLevel .. ")")
+        return
+    end
+
+    os.setComputerLabel(string.sub(currentLabel, 1, firstBracket - 1) .. "(" .. fuelLevel .. ")")
+end
+
 local function checkFuel()
-    local fuelLevel = turtle.getFuelLimit()
+    addFuelValueToTurtleLabel()
+    local fuelLevel = turtle.getFuelLevel()
     if fuelLevel == "unlimited" then
         return true
     end
