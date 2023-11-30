@@ -5,8 +5,8 @@ local args = {...}
 
 local x = math.abs(tonumber(args[1]))
 local y = math.abs(tonumber(args[2]))
-local yN = tonumber(args[2]) < 0
 local z = math.abs(tonumber(args[3]))
+local yN = tonumber(args[2]) < 0
 local zN = tonumber(args[3]) < 0
 
 local function dumpIntoEnderChest()

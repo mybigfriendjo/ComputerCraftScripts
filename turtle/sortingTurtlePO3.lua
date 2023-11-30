@@ -4,7 +4,7 @@ local mov = require("base/mov")
 local storageChest = peripheral.wrap("bottom")
 
 local trash = {
-    -- "enderio:item_basic_capacitor",
+    "enderio:item_basic_capacitor",
     "abyssalcraft:dsword",
     "astralsorcery:itemconstellationpaper",
     "enderio:item_conduit_probe",
@@ -25,7 +25,6 @@ local trash = {
     "minecraft:golden_leggings",
     "minecraft:golden_sword",
     "minecraft:iron_boots",
-    "minecraft:iron_chestplate",
     "minecraft:iron_chestplate",
     "minecraft:iron_helmet",
     "minecraft:iron_leggings",
@@ -214,7 +213,7 @@ while true do
                 sleep(5)
             end
 
-            unknownFile = fs.open("unknownItems.txt", "a")
+            local unknownFile = fs.open("unknownItems.txt", "a")
             unknownFile.writeLine('"' .. data.name .. '",')
             unknownFile.close()
 
