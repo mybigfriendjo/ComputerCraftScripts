@@ -31,8 +31,55 @@ local function saveConfig()
     configFile.close()
 end
 
+local function downloadFile(url, path)
+    local remote = http.get(url)
+    if remote == nil then
+        return false
+    end
+
+    local fileContent = remote.readAll()
+    remote.close()
+
+    local file = fs.open(path, "w+")
+    file.write(fileContent)
+    file.close()
+
+    return true
+end
+
+local function getDirectory(path)
+    -- Find the last occurrence of "/"
+    local lastSlash = path:match(".*/()")
+
+    -- If "/" is found, return the substring excluding the last part
+    if lastSlash then
+        return path:sub(1, lastSlash - 1)
+    else
+        -- If "/" is not found, return the original string
+        return path
+    end
+end
+
 -- main
 
 loadConfig()
 
-config["upstall"] = ""
+config["upstall"] = "https://raw.githubusercontent.com/mybigfriendjo/ComputerCraftScripts/main/upstall.lua"
+
+for k,v in pairs(config) do
+    print(k,v)
+  end
+
+for key, value in pairs(config) do
+    print("Downloading " .. key .. " from " .. value)
+    local path = key
+    if string.find(key, "/") then
+        path = getDirectory(key)
+    end
+
+    if not downloadFile(value, path) then
+        print("Failed to download " .. key .. " from " .. value)
+    end
+end
+
+saveConfig()
