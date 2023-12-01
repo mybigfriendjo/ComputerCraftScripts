@@ -1,4 +1,12 @@
 local configFileName = "upstall.ini"
+local baseGitURL = "https://raw.githubusercontent.com/mybigfriendjo/ComputerCraftScripts/main/"
+
+-- edits below this line at your own risk
+
+local args = {...}
+
+local command = args[1]
+local parameter = args[2]
 
 local config = {}
 
@@ -64,7 +72,10 @@ end
 
 loadConfig()
 
-config["upstall"] = "https://raw.githubusercontent.com/mybigfriendjo/ComputerCraftScripts/main/upstall.lua"
+print(command)
+print(parameter)
+
+config["upstall"] = baseGitURL .. "upstall.lua"
 
 for k,v in pairs(config) do
     print(k,v)
@@ -75,6 +86,7 @@ for key, value in pairs(config) do
     local path = key
     if string.find(key, "/") then
         path = getDirectory(key)
+        fs.makeDir(path)
     end
 
     if not downloadFile(value, path) then
