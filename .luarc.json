@@ -1,0 +1,5 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "runtime.version": "Lua 5.3",
+    "diagnostics.globals": ["fs", "textutils", "http", "os", "turtle", "peripheral", "os", "sleep", "redstone", "tonumber"]
+  }
