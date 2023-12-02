@@ -48,7 +48,11 @@ local function downloadFile(url, path)
     local fileContent = remote.readAll()
     remote.close()
 
-    local file = fs.open(path, "w+")
+    if fs.exists(path) then
+        fs.delete(path)
+    end
+
+    local file = fs.open(path, "w")
     file.write(fileContent)
     file.close()
 
@@ -75,22 +79,17 @@ loadConfig()
 print(command)
 print(parameter)
 
-config["upstall"] = baseGitURL .. "upstall.lua"
-
-for k,v in pairs(config) do
-    print(k,v)
-  end
+config["upstall.lua"] = baseGitURL .. "upstall.lua"
 
 for key, value in pairs(config) do
-    print("Downloading " .. key .. " from " .. value)
+    print("Downloading " .. key)
     local path = key
     if string.find(key, "/") then
-        path = getDirectory(key)
-        fs.makeDir(path)
+        fs.makeDir(getDirectory(key))
     end
 
     if not downloadFile(value, path) then
-        print("Failed to download " .. key .. " from " .. value)
+        print("Failed to download " .. key)
     end
 end
 
