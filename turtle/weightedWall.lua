@@ -33,3 +33,6 @@ local function getWeightedRandomBlock()
         end
     end
 end
+
+-- main
+
