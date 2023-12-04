@@ -6,17 +6,18 @@ local args = {...}
 local height = math.abs(tonumber(args[1]))
 local width = math.abs(tonumber(args[2]))
 
-local blockWeights = {
-    1, 1, 1, 1,
-    1, 1, 1, 1,
-    1, 1, 1, 1,
-    1, 1, 1, 1
-}
-
 math.randomseed(os.clock() * 100000000000)
 for i = 1, 3 do
     math.random(10000, 65000)
 end
+
+---@format disable-next
+local blockWeights = {
+    1, 1, 1, 1,
+    1, 1, 1, 1,
+    1, 1, 1, 0,
+    1, 1, 1, 0
+}
 
 local function getWeightedRandomBlock()
     local totalWeight = 0
@@ -36,3 +37,9 @@ end
 
 -- main
 
+for x = 1, width do
+    for y = 1, height do
+        print(x, y, getWeightedRandomBlock())
+        sleep(1)
+    end
+end
