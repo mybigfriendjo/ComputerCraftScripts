@@ -131,16 +131,41 @@ local function tA()
 end
 
 local function t(direction)
-    if string.lower(direction) == "r" then
-        return tR()
-    elseif string.lower(direction) == "l" then
-        return tL()
-    elseif string.lower(direction) == "a" then
-        return tA()
-    else
-        print("unknown direction")
-        return false, "unknown direction"
+    if direction == nil then
+        print("direction is nil")
+        return false, "direction is nil"
     end
+
+    if type(direction) == "number" then
+        if direction == -1 then
+            return tL()
+        elseif direction == 0 then
+            return true
+        elseif direction == 1 then
+            return tR()
+        elseif direction == -2 or direction == 2 then
+            return tA()
+        else
+            print("unknown direction")
+            return false, "unknown direction"
+        end
+    end
+
+    if type(direction) == "string" then
+        if string.lower(direction) == "r" then
+            return tR()
+        elseif string.lower(direction) == "l" then
+            return tL()
+        elseif string.lower(direction) == "a" then
+            return tA()
+        else
+            print("unknown direction")
+            return false, "unknown direction"
+        end
+    end
+
+    print("unknown direction")
+    return false, "unknown direction"
 end
 
 return {f = f, b = b, l = l, r = r, u = u, d = d, tL = tL, tR = tR, tA = tA, t = t}
