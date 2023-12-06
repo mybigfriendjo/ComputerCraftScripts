@@ -28,8 +28,17 @@ local function getSlotContaining(itemName)
     return foundSlot
 end
 
+local function ternary (cond, trueValue, falseValue)
+    if cond then
+        return trueValue
+    else
+        return falseValue
+    end
+end
+
 return {
     tableHasValue = tableHasValue,
     isInventoryFull = isInventoryFull,
-    getSlotContaining = getSlotContaining
+    getSlotContaining = getSlotContaining,
+    ternary = ternary
 }

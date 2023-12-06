@@ -29,6 +29,18 @@ local function checkFuel()
     return false
 end
 
+local function tL()
+    return turtle.turnLeft()
+end
+
+local function tR()
+    return turtle.turnRight()
+end
+
+local function tA()
+    return turtle.turnRight() and turtle.turnRight()
+end
+
 local function f()
     while not checkFuel() do
         print("out of fuel")
@@ -42,6 +54,7 @@ local function f()
             sleep(10)
         end
     end
+    return true
 end
 
 local function b()
@@ -49,10 +62,18 @@ local function b()
         print("out of fuel")
         sleep(10)
     end
+    if not turtle.back() then
+        tA()
+        while turtle.dig() do
+            sleep(0.5)
+        end
+        tA()
+    end
     while not turtle.back() do
         print("can't move back")
         sleep(10)
     end
+    return true
 end
 
 local function l()
@@ -69,6 +90,7 @@ local function l()
             sleep(10)
         end
     end
+    return true
 end
 
 local function r()
@@ -85,6 +107,7 @@ local function r()
             sleep(10)
         end
     end
+    return true
 end
 
 local function u()
@@ -100,6 +123,7 @@ local function u()
             sleep(10)
         end
     end
+    return true
 end
 
 local function d()
@@ -115,19 +139,7 @@ local function d()
             sleep(10)
         end
     end
-end
-
-local function tL()
-    return turtle.turnLeft()
-end
-
-local function tR()
-    return turtle.turnRight()
-end
-
-local function tA()
-    turtle.turnRight()
-    return turtle.turnRight()
+    return true
 end
 
 local function t(direction)
@@ -168,4 +180,70 @@ local function t(direction)
     return false, "unknown direction"
 end
 
-return {f = f, b = b, l = l, r = r, u = u, d = d, tL = tL, tR = tR, tA = tA, t = t}
+local function hm(direction, keepOrientation)
+    if direction == nil then
+        print("direction is nil")
+        return false, "direction is nil"
+    end
+
+    while not checkFuel() do
+        print("out of fuel")
+        sleep(10)
+    end
+
+    if type(direction) == "number" then
+        if direction == -1 then
+            if keepOrientation then
+                return l() and tR()
+            else
+                return l()
+            end
+        elseif direction == 0 then
+            return f()
+        elseif direction == 1 then
+            if keepOrientation then
+                return r() and tL()
+            else
+                return r()
+            end
+        elseif direction == -2 or direction == 2 then
+            return b()
+        else
+            print("unknown direction")
+            return false, "unknown direction"
+        end
+    end
+
+    print("unknown direction")
+    return false, "unknown direction"
+end
+
+local function vm(direction)
+    if direction == nil then
+        print("direction is nil")
+        return false, "direction is nil"
+    end
+
+    while not checkFuel() do
+        print("out of fuel")
+        sleep(10)
+    end
+
+    if type(direction) == "number" then
+        if direction == -1 then
+            return d()
+        elseif direction == 0 then
+            return true
+        elseif direction == 1 then
+            return u()
+        else
+            print("unknown direction")
+            return false, "unknown direction"
+        end
+    end
+
+    print("unknown direction")
+    return false, "unknown direction"
+end
+
+return {f = f, b = b, l = l, r = r, u = u, d = d, tL = tL, tR = tR, tA = tA, t = t, hm = hm, vm = vm}
