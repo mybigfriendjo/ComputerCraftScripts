@@ -20,10 +20,10 @@ end
     1, 1, 1, 0
 --]]
 local blockWeights = {
-    1, 1, 1, 1,
-    1, 1, 1, 1,
-    1, 1, 1, 0,
-    1, 1, 1, 0
+    20, 20, 20, 10,
+    20, 20, 20, 10,
+    3, 3, 3, 0,
+    3, 3, 3, 0
 }
 
 local function getWeightedRandomBlock()
@@ -84,7 +84,7 @@ while x >= width do
         y = y - 1
     end
 
-    mov.hm(widthDirection)
+    mov.hm(widthDirection, true)
 
     x = x - 1
 end
