@@ -59,7 +59,7 @@ while x >= width do
 
     local y = height
     while y >= height do
-        print(x,y)
+        print("x: " .. x .. ", y: " .. y)
 
         if turtle.detect() then
             while not turtle.dig() do
@@ -69,6 +69,7 @@ while x >= width do
         end
 
         local weightedSelection = getWeightedRandomBlock()
+        print("selected slot " .. weightedSelection)
 
         turtle.select(weightedSelection)
         while turtle.getItemCount() == 0 do
