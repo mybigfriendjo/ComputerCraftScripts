@@ -8,13 +8,17 @@ local width = math.abs(tonumber(args[2]))
 local heightDirection = tools.ternary(tonumber(args[1]) < 0, -1, 1)
 local widthDirection = tools.ternary(tonumber(args[2]) < 0, -1, 1)
 
-
 math.randomseed(os.clock() * 100000000000)
 for i = 1, 3 do
     math.random(10000, 65000)
 end
 
----@format disable-next
+--[[
+    1, 1, 1, 1,
+    1, 1, 1, 1,
+    1, 1, 1, 0,
+    1, 1, 1, 0
+--]]
 local blockWeights = {
     1, 1, 1, 1,
     1, 1, 1, 1,
@@ -40,11 +44,47 @@ end
 
 -- main
 
-for x = 1, width do
-    for y = 1, height do
+if height == 0 then
+    print("height must be bigger than 1 or smaller than -1")
+    return
+end
 
+if width == 0 then
+    print("width must be bigger than 1 or smaller than -1")
+    return
+end
 
-        print(x, y, getWeightedRandomBlock())
-        sleep(1)
+local x = width
+while x >= width do
+
+    local y = height
+    while y >= height do
+        if turtle.detect() then
+            while not turtle.dig() do
+                print("can't dig")
+                sleep(10)
+            end
+        end
+
+        local weightedSelection = getWeightedRandomBlock()
+
+        turtle.select(weightedSelection)
+        while turtle.getItemCount() == 0 do
+            print("missing blocks in slot " .. weightedSelection)
+            sleep(10)
+        end
+
+        while not turtle.place() do
+            print("can't place")
+            sleep(10)
+        end
+
+        mov.vm(heightDirection)
+
+        y = y - 1
     end
+
+    mov.hm(widthDirection)
+
+    x = x - 1
 end
