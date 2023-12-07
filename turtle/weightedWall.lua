@@ -59,6 +59,8 @@ while x >= width do
 
     local y = height
     while y >= height do
+        print(x,y)
+
         if turtle.detect() then
             while not turtle.dig() do
                 print("can't dig")
