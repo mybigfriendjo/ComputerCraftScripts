@@ -20,10 +20,10 @@ end
     1, 1, 1, 0
 --]]
 local blockWeights = {
-    20, 20, 20, 10,
-    20, 20, 20, 10,
-    3, 3, 3, 0,
-    3, 3, 3, 0
+    50,    50,    50,    20,
+    50,    50,    50,    20,
+     3,     3,     3,     0,
+     3,     3,     3,     0
 }
 
 local function getWeightedRandomBlock()
@@ -54,11 +54,10 @@ if width == 0 then
     return
 end
 
-local x = width
-while x >= width do
-
-    local y = height
-    while y >= height do
+local x = 1
+while x <= width do
+    local y = 1
+    while y <= height do
         print("x: " .. x .. ", y: " .. y)
 
         if turtle.detect() then
@@ -82,12 +81,18 @@ while x >= width do
             sleep(10)
         end
 
-        mov.vm(heightDirection)
+        if y < height then
+            mov.vm(heightDirection)
+        end
 
-        y = y - 1
+        y = y + 1
     end
 
-    mov.hm(widthDirection, true)
+    heightDirection = heightDirection * -1
 
-    x = x - 1
+    if x < width then
+        mov.hm(widthDirection, true)
+    end
+
+    x = x + 1
 end
