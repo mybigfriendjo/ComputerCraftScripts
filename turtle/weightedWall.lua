@@ -58,8 +58,7 @@ local x = 1
 while x <= width do
     local y = 1
     while y <= height do
-        print("x: " .. x .. ", y: " .. y)
-
+        
         if turtle.detect() then
             while not turtle.dig() do
                 print("can't dig")
@@ -68,8 +67,7 @@ while x <= width do
         end
 
         local weightedSelection = getWeightedRandomBlock()
-        print("selected slot " .. weightedSelection)
-
+        
         turtle.select(weightedSelection)
         while turtle.getItemCount() == 0 do
             print("missing blocks in slot " .. weightedSelection)
